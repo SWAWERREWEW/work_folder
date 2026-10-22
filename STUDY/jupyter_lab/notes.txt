@@ -1,0 +1,11 @@
+# Создаем классификатор KNN с 5 соседями
+knn = KNeighborsClassifier(n_neighbors=5)
+
+# Обучаем модель на тренировочных данных
+knn.fit(X_train, y_train)
+
+# Делаем предсказания на тестовых данных
+y_pred = knn.predict(X_test)
+
+Команда запуска
+jupyter notebook
