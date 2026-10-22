@@ -9,14 +9,14 @@ from PIL import Image
 
 # 1. Основные настройки
 BATCH_SIZE = 64
-EPOCHS = 15
+EPOCHS = 50
 LEARNING_RATE = 0.001
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # НАСТРОЙТЕ ПУТИ К ВАШИМ ПАПКАМ
 TRAIN_DIR = "./dataset/train"           # Папка со всеми картинками обучения
 TEST_DIR = "./dataset/test"             # Папка со всеми картинками теста
-CSV_PATH = "./dataset/submission.csv"   # Исходный файл разметки (с шапкой file_name,class)
+CSV_PATH = "./dataset/train.csv"   # Исходный файл разметки (с шапкой file_name,class)
 
 # Строгий алфавитный порядок классов
 CLASS_NAMES = ['airplane', 'automobile', 'bird', 'cat', 'deer']
@@ -45,11 +45,19 @@ class TrainDatasetFromCSV(Dataset):
             
         return image, CLASS_TO_IDX[label_name]
 
+import re
+
+# Универсальная функция сортировки строк (работает одинаково на Linux и Windows)
+def natural_sort_key(s):
+    return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
+
+
 class TestDatasetFromFolder(Dataset):
     def __init__(self, img_dir, transform=None):
         self.img_dir = img_dir
         self.transform = transform
-        self.all_imgs = sorted(os.listdir(img_dir)) # Строго сортируем файлы
+        # Сортируем строго по универсальному ключу, независимо от операционной системы
+        self.all_imgs = sorted(os.listdir(img_dir), key=natural_sort_key)
 
     def __len__(self):
         return len(self.all_imgs)
@@ -58,11 +66,12 @@ class TestDatasetFromFolder(Dataset):
         img_name = self.all_imgs[idx]
         img_path = os.path.join(self.img_dir, img_name)
         image = Image.open(img_path).convert("RGB")
-        
+
         if self.transform:
             image = self.transform(image)
-            
+
         return image, img_name
+
 
 # 3. Аугментация для повышения точности (чтобы пройти порог)
 train_transforms = transforms.Compose([
@@ -177,5 +186,5 @@ if __name__ == '__main__':
                 
     # Сохраняем СТРОГО без заголовков и индексов
     df_out = pd.DataFrame(submission_results)
-    df_out.to_csv("submission_cv1.csv", index=False, header=False, encoding='utf-8')
-    print("Файл 'submission_cv1.csv' успешно создан. Отправляйте его на платформу!")
+    df_out.to_csv("submission.csv", index=False, header=False, encoding='utf-8')
+    print("Файл 'submission.csv' успешно создан. Отправляйте его на платформу!")
