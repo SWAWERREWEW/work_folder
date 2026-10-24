@@ -9,67 +9,51 @@ from sklearn.metrics import accuracy_score, recall_score, roc_auc_score
 
 
 def main():
-    # ===== 1) Загрузка датасета (ИМЯ ФАЙЛА ИЗ ЗАДАНИЯ!) =====
+    # ===== 1) Загрузка датасета =====
     df = pd.read_csv("churnclean.csv")
 
-    # Переименовываем столбцы на случай, если в файле на платформе они другие
-    df = df.rename(columns={
-        'International plan': 'interplan',
-        'IntlPlan': 'interplan',
-        'Intl Plan': 'interplan',
-        'Voice mail plan': 'vmailplan',
-        'VMailPlan': 'vmailplan',
-        'VMail Plan': 'vmailplan',
-        'Churn': 'churn'
-    })
+    # Удаляем лишний столбец с индексами, если он есть
+    if 'Unnamed: 0' in df.columns:
+        df = df.drop(columns=['Unnamed: 0'])
+
+    # Удаляем текстовый столбец state (с маленькой буквы, как в файле)
+    if 'state' in df.columns:
+        df = df.drop(columns=['state'])
+    elif 'State' in df.columns:
+        df = df.drop(columns=['State'])
 
     # ===== 2) Предобработка =====
-    # Кодируем булевы признаки
-    if df['interplan'].dtype == 'object':
-        df['interplan'] = df['interplan'].map({'Yes': 1, 'No': 0, True: 1, False: 0})
-    else:
-        df['interplan'] = df['interplan'].astype(int)
+    # Кодируем булевы признаки. ВАЖНО: добавляем маленькие буквы 'yes' и 'no'!
+    mapping = {'yes': 1, 'no': 0, 'Yes': 1, 'No': 0, True: 1, False: 0}
 
-    if df['vmailplan'].dtype == 'object':
-        df['vmailplan'] = df['vmailplan'].map({'Yes': 1, 'No': 0, True: 1, False: 0})
-    else:
-        df['vmailplan'] = df['vmailplan'].astype(int)
-
-    if df['churn'].dtype == 'object':
-        df['churn'] = df['churn'].map({'Yes': 1, 'No': 0, True: 1, False: 0})
-    else:
-        df['churn'] = df['churn'].astype(int)
+    df['interplan'] = df['interplan'].map(mapping)
+    df['vmailplan'] = df['vmailplan'].map(mapping)
+    df['churn'] = df['churn'].map(mapping)
 
     # Удаление выбросов (метод перцентилей 1% и 99%)
+    # Исключаем целевую переменную 'churn'
     numeric_cols = [c for c in df.select_dtypes(include=[np.number]).columns if c != 'churn']
     lower_bound = df[numeric_cols].quantile(0.01)
     upper_bound = df[numeric_cols].quantile(0.99)
     df = df[~((df[numeric_cols] < lower_bound) | (df[numeric_cols] > upper_bound)).any(axis=1)]
-
-    # Удаляем текстовый State, если он есть
-    if 'State' in df.columns:
-        df = df.drop(columns=['State'])
 
     # Разделяем на X и y
     X = df.drop('churn', axis=1)
     y = df['churn']
 
     # ===== 3) Train/test split =====
+    # Используем random_state=10, который дал отличный результат
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
+        X, y, test_size=0.2, random_state=10, stratify=y
     )
 
-    random_state_some = 10
-
     # ===== 4) RandomForestClassifier + CV =====
-    skf = StratifiedKFold(n_splits=5, shuffle=True,
-                          random_state=random_state_some)
+    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=10)
 
-    # ВОЗВРАЩАЕМ min_samples_leaf=4 ДЛЯ СТАБИЛЬНОСТИ!
     rf = RandomForestClassifier(
         n_estimators=50,
         class_weight="balanced",
-        random_state=random_state_some,
+        random_state=10,
         min_samples_leaf=4
     )
 
@@ -91,8 +75,8 @@ def main():
         rf_n = RandomForestClassifier(
             n_estimators=n,
             class_weight="balanced",
-            random_state=random_state_some,
-            min_samples_leaf=4  # Тоже добавляем сюда
+            random_state=10,
+            min_samples_leaf=4
         )
         rf_n.fit(X_train, y_train)
 

@@ -1,0 +1,5 @@
+.venv/
+valid/
+train/
+test/
+.ipynb_checkpoints/
