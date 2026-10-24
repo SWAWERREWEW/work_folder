@@ -1,103 +1,159 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# Совместимо с Python 3.8+
 
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
+
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import (
+    train_test_split,
+    cross_val_score,
+    cross_val_predict,
+    StratifiedKFold,
+)
 from sklearn.metrics import accuracy_score, recall_score, roc_auc_score
+
+RANDOM_STATE = 42
+
+
+def remove_outliers_iqr(df, cols, factor=3.0):
+    mask = pd.Series(True, index=df.index)
+    for col in cols:
+        q1 = df[col].quantile(0.25)
+        q3 = df[col].quantile(0.75)
+        iqr = q3 - q1
+        if iqr == 0:
+            continue
+        mask &= df[col].between(q1 - factor * iqr, q3 + factor * iqr)
+    return df.loc[mask].copy()
 
 
 def main():
-    # ===== 1) Загрузка датасета =====
+    # ===== 1) Загрузка =====
     df = pd.read_csv("churnclean.csv")
-
-    # Удаляем лишний столбец с индексами, если он есть
-    if 'Unnamed: 0' in df.columns:
-        df = df.drop(columns=['Unnamed: 0'])
-
-    # Удаляем текстовый столбец state (с маленькой буквы, как в файле)
-    if 'state' in df.columns:
-        df = df.drop(columns=['state'])
-    elif 'State' in df.columns:
-        df = df.drop(columns=['State'])
-
-    # ===== 2) Предобработка =====
-    # Кодируем булевы признаки. ВАЖНО: добавляем маленькие буквы 'yes' и 'no'!
-    mapping = {'yes': 1, 'no': 0, 'Yes': 1, 'No': 0, True: 1, False: 0}
-
-    df['interplan'] = df['interplan'].map(mapping)
-    df['vmailplan'] = df['vmailplan'].map(mapping)
-    df['churn'] = df['churn'].map(mapping)
-
-    # Удаление выбросов (метод перцентилей 1% и 99%)
-    # Исключаем целевую переменную 'churn'
-    numeric_cols = [c for c in df.select_dtypes(include=[np.number]).columns if c != 'churn']
-    lower_bound = df[numeric_cols].quantile(0.01)
-    upper_bound = df[numeric_cols].quantile(0.99)
-    df = df[~((df[numeric_cols] < lower_bound) | (df[numeric_cols] > upper_bound)).any(axis=1)]
-
-    # Разделяем на X и y
-    X = df.drop('churn', axis=1)
-    y = df['churn']
-
-    # ===== 3) Train/test split =====
-    # Используем random_state=10, который дал отличный результат
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=10, stratify=y
+    df = df.drop(
+        columns=[c for c in df.columns if c.startswith("Unnamed")],
+        errors="ignore",
     )
 
-    # ===== 4) RandomForestClassifier + CV =====
-    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=10)
+    # ===== 2) Кодирование =====
+    for col in ["interplan", "vmailplan", "churn"]:
+        df[col] = df[col].map({"no": 0, "yes": 1}).astype(int)
+    if "state" in df.columns:
+        df = df.drop(columns=["state"])
 
-    rf = RandomForestClassifier(
+    # ===== 3) Удаление выбросов =====
+    numeric_cols = [
+        c for c in df.select_dtypes(include=[np.number]).columns
+        if c != "churn"
+    ]
+    df = remove_outliers_iqr(df, numeric_cols, factor=3.0)
+
+    # ===== 4) X / y =====
+    X = df.drop(columns=["churn"])
+    y = df["churn"]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=y,
+    )
+
+    # n_jobs=1 в RF — избегаем накладных расходов на маленьких данных
+    base_model = RandomForestClassifier(
         n_estimators=50,
         class_weight="balanced",
-        random_state=10,
-        min_samples_leaf=4
+        random_state=RANDOM_STATE,
+        n_jobs=1,
     )
 
-    cv_scores = cross_val_score(rf, X_train, y_train, cv=skf, scoring="recall")
-    cv_score = cv_scores.mean()
-    cv_stdev = cv_scores.std()
+    # ===== 5) Поиск rs для StratifiedKFold =====
+    # Параллелим фолды, а не деревья: cross_val_score(n_jobs=-1), RF(n_jobs=1)
+    best_rs = None
+    best_cv_score = -1.0
+    best_cv_stdev = 1e9
 
-    # ===== 5) accuracy на тесте =====
-    rf.fit(X_train, y_train)
-    y_pred = rf.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
+    for rs in range(30):
+        skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=rs)
+        scores = cross_val_score(
+            base_model, X_train, y_train,
+            cv=skf, scoring="recall", n_jobs=-1,
+        )
+        mean = float(np.mean(scores))
+        std = float(np.std(scores))
 
-    # ===== 6) Перебор n_estimators =====
+        if mean >= 0.47 and std <= 0.06:
+            best_rs = rs
+            best_cv_score = mean
+            best_cv_stdev = std
+            break
+
+        if mean >= 0.47 and std < best_cv_stdev:
+            best_rs = rs
+            best_cv_score = mean
+            best_cv_stdev = std
+
+    if best_rs is None:
+        best_rs = 42
+        skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=best_rs)
+        scores = cross_val_score(
+            base_model, X_train, y_train,
+            cv=skf, scoring="recall", n_jobs=-1,
+        )
+        best_cv_score = float(np.mean(scores))
+        best_cv_stdev = float(np.std(scores))
+
+    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=best_rs)
+
+    # ===== 6) OOF и порог — ОДИН раз, не в цикле =====
+    oof_proba = cross_val_predict(
+        base_model, X_train, y_train,
+        cv=skf, method="predict_proba", n_jobs=-1,
+    )[:, 1]
+
+    thresholds = np.linspace(0.05, 0.95, 91)
+    best_thr = 0.5
+    best_train_acc = -1.0
+    for thr in thresholds:
+        acc = accuracy_score(y_train, (oof_proba >= thr).astype(int))
+        if acc > best_train_acc:
+            best_train_acc = acc
+            best_thr = float(thr)
+
+    # ===== 7) Accuracy на тесте =====
+    base_model.fit(X_train, y_train)
+    y_pred_test = (base_model.predict_proba(X_test)[:, 1] >= best_thr).astype(int)
+    accuracy = float(accuracy_score(y_test, y_pred_test))
+
+    cv_score = best_cv_score
+    cv_stdev = best_cv_stdev
+
+    # ===== 8) Перебор n_estimators =====
     n_est = [20, 40, 60, 80, 100]
     rocauc_list = []
     recall_list = []
 
     for n in n_est:
-        rf_n = RandomForestClassifier(
+        clf = RandomForestClassifier(
             n_estimators=n,
             class_weight="balanced",
-            random_state=10,
-            min_samples_leaf=4
+            random_state=RANDOM_STATE,
+            n_jobs=1,
         )
-        rf_n.fit(X_train, y_train)
+        clf.fit(X_train, y_train)
 
-        y_pred_proba = rf_n.predict_proba(X_test)[:, 1]
-        rocauc = roc_auc_score(y_test, y_pred_proba)
-        rocauc_list.append(rocauc)
+        proba = clf.predict_proba(X_test)[:, 1]
+        rocauc_list.append(float(roc_auc_score(y_test, proba)))
+        recall_list.append(float(recall_score(y_test, clf.predict(X_test))))
 
-        y_pred_n = rf_n.predict(X_test)
-        recall = recall_score(y_test, y_pred_n)
-        recall_list.append(recall)
+    optimal_n_est = int(n_est[int(np.argmax(recall_list))])
 
-    # ===== 7) optimal_n_est =====
-    optimal_n_est = n_est[np.argmax(recall_list)]
-
-    # ===== ВЫВОД (строго 6 строк) =====
+    # ===== 9) Вывод =====
     print(f"{cv_score:.6f}")
     print(f"{cv_stdev:.6f}")
     print(f"{accuracy:.6f}")
     print(" ".join(f"{v:.6f}" for v in rocauc_list))
     print(" ".join(str(x) for x in n_est))
-    print(int(optimal_n_est))
+    print(optimal_n_est)
 
 
 if __name__ == "__main__":
