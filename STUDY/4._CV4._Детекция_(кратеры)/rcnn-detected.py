@@ -1,3 +1,4 @@
+"""
 <a id="Intro"></a>
 # Часть 1: Введение и настройка окружения 
 
@@ -28,7 +29,7 @@
 !cp ./vision/references/detection/coco_eval.py ./
 !cp ./vision/references/detection/engine.py ./
 !cp ./vision/references/detection/coco_utils.py ./
-
+"""
 import os
 import numpy as np
 import torch
@@ -48,6 +49,7 @@ from  sklearn.model_selection import KFold
 import random
 import pandas as pd
 
+"""
 <a id="Dataset"></a>
 # Part 2: Dataset
 Модель Faster R-CNN, предобученная на датасете COCO и загружаемая из библиотеки torchvision, требует, чтобы класс датасета обязательно содержал два метода: 
@@ -63,7 +65,7 @@ import pandas as pd
     boxes — координаты рамок,  
     labels — метки классов,  
     и другие обязательные ключи, требуемые моделью Faster R-CNN
-
+"""
 
 class CraterDataset(object):
     def __init__(self, root, transforms):
@@ -138,10 +140,11 @@ class CraterDataset(object):
 
 
 <a id="Model"></a>
+"""
 # Part 3: Model Configuration
 Для данного проекта используется загружена модель Faster R-CNN с backbone'ом _mobilenet_v3_large, предварительно обученным на датасете COCO.
 Голова модели (ROI head), предварительно обученная на COCO, была заменена на новую, которую необходимо дообучить на нашем датасете.
-
+"""
 
 
 def get_model_bbox(num_classes):
@@ -183,9 +186,9 @@ def reset_weights(m):
 
 <a id="Image-visual"></a>
 # Part 4: Image visualization 
-
+"""
 Следующая функция отображает изображение, полученное из набора данных, и накладывает ограничивающие обрамляющие рамки из файла разметки
-
+"""
 
 # Отрисовка рамок
 def plot_img_bbox(img, target):
@@ -287,11 +290,11 @@ save_path = os.path.join(f'model.pth')
 torch.save(model.state_dict(), save_path)
 print(f'model from last epoch(no.{num_epochs-1}) saved')
 
-
+"""
 <a id="Inference"></a>
 # Part 7: Inference
 Выполняет предсказание обученной моделью отрисовываем обрамлящие рамки для на картинках
-
+"""
 
 dataset_test = CraterDataset(path2valid, get_transform(train=False))
 
@@ -445,10 +448,12 @@ for i in range(5):
     ax[0][i].imshow(mask)
     ax[1][i].imshow(img)
 
+"""
 <a id="Inference. Формирование файла предсказаний"></a>
 # Часть 7: Inference. Формирование файла предсказаний
 Выполняем предсказание обученной моделью. Заполняем области внутри обмамляющих рамок значение "1", остальное "0". Результаты предсказаний 
 кодируем rle формат и записываем в 'csv'. 
+"""
 
 def rle_encode_tensor(mask_tensor):
     """
@@ -501,6 +506,7 @@ frame.to_csv('submission.csv', index = False)
 
 frame.head()
 
+"""
 ## Добавьте в ноутбук отдельный раздел «Анализ результатов работы модели», включающий следующие пункты:
 
 Проведите не менее трёх экспериментов с разными гиперпараметрами (например, learning rate, размер батча, эпохи, разморозка слоев архитектуры). Составьте таблицу результатов. На основе метрик выберите наилучший вариант для финального обучения. Для финальной модели выполните детальный анализ результатов:
@@ -510,5 +516,4 @@ a) Анализ по размеру объектов — разбейте рез
 b) Влияние порога уверенности (confidence threshold) — проанализируйте, как изменение порога уверенности влияет на точность метрику Постройте график dice зависимости от порога. (5 баллов)
 
 c) Визуализация результатов — приведите примеры: Успешных предсказаний (точное совпадение маски и положения кратера); Типичных ошибок (ложные срабатывания, пропущенные кратеры, неточные маски). Для каждого примера поясните возможную причину ошибки. (5 баллов)
-
-
+"""

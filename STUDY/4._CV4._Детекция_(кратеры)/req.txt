@@ -1,1 +1,19 @@
 jupyter
+torch
+torchvision
+pycocotools
+albumentations
+opencv-python
+matplotlib
+scikit-learn
+pandas
+numpy
+
+
+# !pip install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'  # pycocotools
+# !pip install -U albumentations
+# !pip install -U opencv-python
+
+# git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI
+albumentations
+opencv-python

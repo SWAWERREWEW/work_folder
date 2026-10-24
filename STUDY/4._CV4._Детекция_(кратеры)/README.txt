@@ -1,5 +1,9 @@
 Перед выполнением необходимы папки valid, train и test
 
+# !pip install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'  # pycocotools
+# !pip install -U albumentations
+# !pip install -U opencv-python
+
 
 4. CV4. Детекция (кратеры)
 Ограничение времени	1 секунда
