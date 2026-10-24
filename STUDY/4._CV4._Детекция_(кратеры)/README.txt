@@ -1,4 +1,4 @@
-Перед выполнением необходимы папки valid, train и test
+Перед выполнением необходимы папку data
 
 # !pip install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'  # pycocotools
 # !pip install -U albumentations
