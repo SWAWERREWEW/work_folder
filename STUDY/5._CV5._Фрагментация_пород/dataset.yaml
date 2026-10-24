@@ -1,0 +1,8 @@
+# YOLOv8-seg Dataset Config Ч Rock Fragmentation
+path: dataset          # относительный путь от корн€ проекта
+train: train/images    # train изображени€
+val: train/images        # val изображени€
+
+names:
+  0: stone             # единственный класс Ч фрагменты горных пород
+nc: 1
