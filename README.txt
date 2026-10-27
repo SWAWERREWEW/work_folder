@@ -16,6 +16,8 @@ git reset --soft HEAD~1
 git reset HEAD sitewomen\sitewomen\settings.py
 git reset HEAD sitewomen\db.json
 
+git reset HEAD 
+
 создать новый коммит с тем же сообщением
 git commit -c ORIG_HEAD
 
