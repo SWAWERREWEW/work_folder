@@ -22,6 +22,13 @@ CSV_PATH = "./dataset/train.csv"   # Исходный файл разметки 
 CLASS_NAMES = ['airplane', 'automobile', 'bird', 'cat', 'deer']
 CLASS_TO_IDX = {cls: idx for idx, cls in enumerate(CLASS_NAMES)}
 
+# ПУТЬ К ЭТАЛОННОМУ ФАЙЛУ
+REFERENCE_SUBMIT = "./_yandex_submit_cv1.csv"   # положите рядом с main.py
+
+# Загружаем эталонный порядок
+ref_names = pd.read_csv(REFERENCE_SUBMIT, header=None)[0].tolist()
+print(f"Эталонных строк: {len(ref_names)}")
+
 # 2. Датасеты
 class TrainDatasetFromCSV(Dataset):
     def __init__(self, csv_file, img_dir, transform=None):
@@ -183,8 +190,22 @@ if __name__ == '__main__':
             for filename, pred_idx in zip(filenames, preds):
                 pred_label = CLASS_NAMES[pred_idx.item()]
                 submission_results.append([filename, pred_label])
-                
+
     # Сохраняем СТРОГО без заголовков и индексов
     df_out = pd.DataFrame(submission_results)
-    df_out.to_csv("submission.csv", index=False, header=False, encoding='utf-8')
-    print("Файл 'submission.csv' успешно создан. Отправляйте его на платформу!")
+    # df_out.to_csv("submission.csv", index=False, header=False, encoding='utf-8')
+    # print("Файл 'submission.csv' успешно создан. Отправляйте его на платформу!")
+
+    # После предсказаний: собираем словарь filename -> label
+    pred_by_name = {fname: pred_label for fname, pred_label in submission_results}
+
+    # Проверяем, что все файлы из эталона предсказаны
+    missing = [n for n in ref_names if n not in pred_by_name]
+    assert not missing, f"Не предсказаны: {missing[:5]}"
+
+    # Сохраняем в порядке эталона
+    with open("submission.csv", "w", encoding="utf-8", newline="\n") as f:
+        for fname in ref_names:
+            f.write(f"{fname},{pred_by_name[fname]}\n")
+
+    print("submission.csv сохранён в порядке эталона")

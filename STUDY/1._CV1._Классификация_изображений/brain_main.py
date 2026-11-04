@@ -27,5 +27,3 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 # Создаем генератор и говорим ему: "дели все пиксели на 255"
 datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
-
-
