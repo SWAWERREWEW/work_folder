@@ -1,7 +1,6 @@
-import tensorflow
 import pandas
 
-data = pandas.read_csv("_yandex_submit_cv1.csv")
+data = pandas.read_csv("dataset/train.csv")
 print(data.head(10))
 
 """
@@ -20,10 +19,19 @@ print(data.head(10))
 """
 
 """
-Дальше нужно обработать данные для обучения или создать конвейер данных (Data Pipeline)
+Сначала обработка данных
+
+Создание трансформера
 """
 
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from torchvision import transforms
 
-# Создаем генератор и говорим ему: "дели все пиксели на 255"
-datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
+transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),                       # PIL -> tensor (3, 224, 224), float32, [0,1]
+    transforms.Normalize(                        # нормализация по каналам
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225],
+    ),
+])
+

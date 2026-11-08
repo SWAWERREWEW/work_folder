@@ -6,6 +6,10 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from PIL import Image
+import matplotlib
+matplotlib.use("Agg")   # если запускаете без GUI / на сервере; иначе можно убрать
+import matplotlib.pyplot as plt
+# %matplotlib inline
 
 # 1. Основные настройки
 BATCH_SIZE = 64
@@ -131,9 +135,8 @@ class OptimizedCNN(nn.Module):
 
 # 5. Запуск основного процесса
 if __name__ == '__main__':
-    print(f"Используемое устройство: {DEVICE}")
-    
     # Загрузка данных с разделением на train/val для контроля точности
+    print(f"Используемое устройство: {DEVICE}")
     full_train_dataset = TrainDatasetFromCSV(csv_file=CSV_PATH, img_dir=TRAIN_DIR, transform=train_transforms)
     train_size = int(0.85 * len(full_train_dataset))
     val_size = len(full_train_dataset) - train_size
@@ -148,6 +151,8 @@ if __name__ == '__main__':
     model = OptimizedCNN().to(DEVICE)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-4)
+
+    train_losses, val_losses, val_accs = [], [], []
     
     # Цикл обучения
     for epoch in range(EPOCHS):
@@ -166,15 +171,51 @@ if __name__ == '__main__':
         model.eval()
         correct = 0
         total = 0
+        val_loss = 0.0
         with torch.no_grad():
             for images, labels in val_loader:
                 images, labels = images.to(DEVICE), labels.to(DEVICE)
                 outputs = model(images)
+                loss = criterion(outputs, labels)
+                val_loss += loss.item() * images.size(0)
                 _, preds = torch.max(outputs, 1)
                 correct += (preds == labels).sum().item()
                 total += labels.size(0)
-                
-        print(f"Эпоха {epoch+1}/{EPOCHS} | Loss: {train_loss/train_size:.4f} | Val Accuracy: {100 * correct / total:.2f}%")
+    
+        train_losses.append(train_loss / train_size)
+        val_losses.append(val_loss / total)
+        val_accs.append(100 * correct / total)
+    
+        print(f"Эпоха {epoch+1}/{EPOCHS} | "
+              f"Train Loss: {train_losses[-1]:.4f} | "
+              f"Val Loss: {val_losses[-1]:.4f} | "
+              f"Val Acc: {val_accs[-1]:.2f}%")
+
+
+    # Графики
+    epochs_range = range(1, len(train_losses) + 1)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+    axes[0].plot(epochs_range, train_losses, label="train")
+    axes[0].plot(epochs_range, val_losses, label="val")
+    axes[0].set_xlabel("Эпоха")
+    axes[0].set_ylabel("Loss")
+    axes[0].set_title("Loss по эпохам")
+    axes[0].legend()
+    axes[0].grid(True)
+
+    axes[1].plot(epochs_range, val_accs, color="green", label="val accuracy")
+    axes[1].set_xlabel("Эпоха")
+    axes[1].set_ylabel("Accuracy, %")
+    axes[1].set_title("Метрика по эпохам")
+    axes[1].legend()
+    axes[1].grid(True)
+
+    plt.tight_layout()
+    plt.savefig("training_curves.png", dpi=150)
+    plt.show()
+    print("Графики сохранены в training_curves.png")
+
 
     # 6. Предсказание для теста
     print("\nГенерация предсказаний...")
