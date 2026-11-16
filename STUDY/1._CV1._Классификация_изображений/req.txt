@@ -4,4 +4,4 @@ pandas
 torch
 torchvision
 matplotlib
-# jupyter
+jupyter

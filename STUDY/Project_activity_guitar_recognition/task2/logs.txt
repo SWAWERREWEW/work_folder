@@ -1,0 +1,408 @@
+(.venv) D:\python_programming\for_git_repositories\guitar-fingering-ai\classify_instrument>python classify_instrument.py
+Список полученных файлов для обработки:
+['videos_for_classify\\video_1.mp4', 'videos_for_classify\\video_10.mp4', 'videos_for_classify\\video_11.mp4', 'videos_for_classify\\video_12.mp4', 'videos_for_classify\\video_2.mp4', 'videos_for_classify\\video_3.mp4', 'videos_for_classify\\video_4.mp4', 'videos_for_classify\\video_5.mp4', 'videos_for_classify\\video_6.mp4', 'videos_for_classify\\video_7.mp4', 'videos_for_classify\\video_8.mp4', 'videos_for_classify\\video_9.mp4']
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+config.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4.19k/4.19k [00:00<?, ?B/s]
+D:\python_programming\for_git_repositories\guitar-fingering-ai\classify_instrument\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\artko\.cache\huggingface\hub\models--openai--clip-vit-base-patch32. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+D:\python_programming\for_git_repositories\guitar-fingering-ai\classify_instrument\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\artko\.cache\huggingface\hub. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+pytorch_model.bin: downloading bytes: ███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████|  433MB, 8.11MB/s
+pytorch_model.bin: reconstructing file: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████|  605MB /  605MB, 41.8MB/s
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 398/398 [00:00<00:00, 25472.78it/s]
+preprocessor_config.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 316/316 [00:00<?, ?B/s]
+tokenizer_config.json: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 592/592 [00:00<?, ?B/s]
+vocab.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 862k/862k [00:00<00:00, 1.13MB/s]
+merges.txt: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 525k/525k [00:00<00:00, 600kB/s]
+tokenizer.json: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2.22M/2.22M [00:00<00:00, 2.64MB/s]
+special_tokens_map.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 389/389 [00:00<?, ?B/s]
+model.safetensors: downloading bytes: ███████████                                                                                                                                                                | 39.3MB, 2.89MB/s
+Результат анализа видео 'videos_for_classify\video_1.mp4':                                                                                                                                                 | 0.00/389 [00:00<?, ?B/s]
+Определен класс: electric (уверенность: 71%)
+model.safetensors: downloading bytes: ███████████▋                                                                                                                                                               | 41.6MB, 3.04MB/s  [h264 @ 0000017071977080] Missing reference picture, default is 0
+[h264 @ 0000017071977080] decode_slice_header error
+model.safetensors: downloading bytes: ████████████▊                                                                                                                                                              | 45.3MB, 3.10MB/s  [h264 @ 0000017071977080] Missing reference picture, default is 0
+[h264 @ 0000017071977080] decode_slice_header error
+model.safetensors: downloading bytes: ██████████████▉                                                                                                                                                            | 52.8MB, 3.72MB/s
+Результат анализа видео 'videos_for_classify\video_10.mp4':
+Определен класс: acoustic (уверенность: 48%)
+model.safetensors: downloading bytes: ███████████████▎                                                                                                                                                           | 54.2MB, 3.83MB/s  [h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 0000017071ed3280] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 00000170703df300] Missing reference picture, default is 0
+[h264 @ 00000170703df300] decode_slice_header error
+[h264 @ 00000170703df6c0] Missing reference picture, default is 0
+[h264 @ 00000170703df6c0] decode_slice_header error
+[h264 @ 00000170703de800] Missing reference picture, default is 0
+[h264 @ 00000170703de800] decode_slice_header error
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 0000017071ed3280] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████▊                                                                                                                                                           | 55.8MB, 3.77MB/s  [h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703ddcc0] co located POCs unavailable
+[h264 @ 0000017071ed3280] Missing reference picture, default is 0
+[h264 @ 00000170703df300] Missing reference picture, default is 0
+[h264 @ 00000170703df300] decode_slice_header error
+[h264 @ 00000170703df6c0] Missing reference picture, default is 0
+[h264 @ 00000170703df6c0] decode_slice_header error
+[h264 @ 00000170703de800] Missing reference picture, default is 0
+[h264 @ 00000170703de800] decode_slice_header error
+[h264 @ 00000170703de080] Missing reference picture, default is 0
+[h264 @ 00000170703de080] decode_slice_header error
+[h264 @ 00000170703ddcc0] Missing reference picture, default is 0
+[h264 @ 00000170703ddcc0] decode_slice_header error
+[h264 @ 0000017071ed3280] Missing reference picture, default is 0
+[h264 @ 0000017071ed3280] decode_slice_header error
+[h264 @ 0000017071ed6240] Missing reference picture, default is 0
+[h264 @ 0000017071ed6240] decode_slice_header error
+[h264 @ 0000017071ed3600] Missing reference picture, default is 65557
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+model.safetensors: downloading bytes: ████████████████▏                                                                                                                                                          | 57.1MB, 3.83MB/s  [h264 @ 00000170703df300] co located POCs unavailable
+[h264 @ 00000170703df6c0] co located POCs unavailable
+[h264 @ 00000170703de800] co located POCs unavailable
+[h264 @ 00000170703de080] co located POCs unavailable
+model.safetensors: downloading bytes: █████████████████▌                                                                                                                                                         | 62.3MB, 3.94MB/s
+Результат анализа видео 'videos_for_classify\video_11.mp4':
+Определен класс: classical (уверенность: 82%)
+model.safetensors: downloading bytes: ██████████████████▏                                                                                                                                                        | 64.3MB, 4.16MB/s  [model.safetensors: downloading bytes: ██████████████████▊                                                                                                                                                        | 66.4MB, 4.29MB/s  co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] Missing reference picture, default is 0
+[h264 @ 000001707208e900] Missing reference picture, default is 0
+[h264 @ 000001707208e900] decode_slice_header error
+[h264 @ 000001707208fb80] Missing reference picture, default is 0
+[h264 @ 000001707208fb80] decode_slice_header error
+[h264 @ 000001707208e540] Missing reference picture, default is 0
+[h264 @ 000001707208e540] decode_slice_header error
+[h264 @ 000001707208ff00] Missing reference picture, default is 0
+[h264 @ 000001707208ff00] decode_slice_header error
+[h264 @ 000001707208ecc0] Missing reference picture, default is 0
+[h264 @ 000001707208ecc0] decode_slice_header error
+[h264 @ 00000170709606c0] Missing reference picture, default is 0
+[h264 @ 00000170709606c0] decode_slice_header error
+[h264 @ 000001707095da80] Missing reference picture, default is 65551
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████████▏                                                                                                                                                       | 68.0MB, 4.36MB/s  [h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████████▌                                                                                                                                                       | 69.2MB, 4.38MB/s  [h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████████▉                                                                                                                                                       | 70.8MB, 4.38MB/s  [h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+[h264 @ 00000170709606c0] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+model.safetensors: downloading bytes: ████████████████████▎                                                                                                                                                      | 72.1MB, 4.40MB/s  [h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+model.safetensors: downloading bytes: ████████████████████▉                                                                                                                                                      | 74.2MB, 4.44MB/s  [h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+[h264 @ 00000170709606c0] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+model.safetensors: downloading bytes: █████████████████████▌                                                                                                                                                     | 76.4MB, 4.55MB/s  [h264 @ 000001707208e900] Missing reference picture, default is 0
+[h264 @ 000001707208e900] decode_slice_header error
+[h264 @ 000001707208fb80] Missing reference picture, default is 0
+[h264 @ 000001707208fb80] decode_slice_header error
+[h264 @ 000001707208e540] Missing reference picture, default is 0
+[h264 @ 000001707208e540] decode_slice_header error
+[h264 @ 000001707095cbc0] Missing reference picture, default is 65565
+[h264 @ 000001707208e900] co located POCs unavailable
+model.safetensors: downloading bytes: ██████████████████████▎                                                                                                                                                    | 78.9MB, 4.66MB/s  [h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████████████▎                                                                                                                                                   | 82.3MB, 4.82MB/s  [h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+[h264 @ 00000170709606c0] co located POCs unavailable
+[h264 @ 000001707095e580] Missing reference picture, default is 0
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208ff00] co located POCs unavailable
+[h264 @ 000001707208ecc0] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████████████▉                                                                                                                                                   | 84.7MB, 5.12MB/s  [h264 @ 000001707208e900] Missing reference picture, default is 0
+[h264 @ 000001707208e900] decode_slice_header error
+[h264 @ 000001707208fb80] Missing reference picture, default is 0
+[h264 @ 000001707208fb80] decode_slice_header error
+[h264 @ 000001707208e540] Missing reference picture, default is 0
+[h264 @ 000001707208e540] decode_slice_header error
+[h264 @ 000001707208ff00] Missing reference picture, default is 0
+[h264 @ 000001707208ff00] decode_slice_header error
+[h264 @ 000001707095cbc0] Missing reference picture, default is 65560
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208e900] Missing reference picture, default is 0
+[h264 @ 000001707208e900] decode_slice_header error
+[h264 @ 000001707208fb80] Missing reference picture, default is 0
+[h264 @ 000001707208fb80] decode_slice_header error
+[h264 @ 00000170709606c0] Missing reference picture, default is 65571
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e900] co located POCs unavailable
+[h264 @ 000001707208fb80] co located POCs unavailable
+[h264 @ 000001707208e540] co located POCs unavailable
+model.safetensors: downloading bytes: █████████████████████████▋                                                                                                                                                 | 91.0MB, 5.36MB/s
+Результат анализа видео 'videos_for_classify\video_12.mp4':
+Определен класс: electric (уверенность: 60%)
+model.safetensors: downloading bytes: ████████████████████████████▌                                                                                                                                              |  101MB, 5.77MB/s
+Результат анализа видео 'videos_for_classify\video_2.mp4':                                                                                                                                              | 8.39MB /  605MB
+Определен класс: bass (уверенность: 41%)
+model.safetensors: downloading bytes: ██████████████████████████████▌                                                                                                                                            |  108MB, 6.05MB/s
+Результат анализа видео 'videos_for_classify\video_3.mp4':
+Определен класс: classical (уверенность: 37%)
+model.safetensors: downloading bytes: █████████████████████████████████▌                                                                                                                                         |  119MB, 6.31MB/s
+Результат анализа видео 'videos_for_classify\video_4.mp4':
+Определен класс: electric (уверенность: 75%)
+model.safetensors: downloading bytes: ███████████████████████████████████▉                                                                                                                                       |  127MB, 6.60MB/s
+Результат анализа видео 'videos_for_classify\video_5.mp4':
+Определен класс: classical (уверенность: 63%)
+model.safetensors: downloading bytes: ██████████████████████████████████████                                                                                                                                     |  135MB, 6.82MB/s
+Результат анализа видео 'videos_for_classify\video_6.mp4':
+Определен класс: electric (уверенность: 46%)
+model.safetensors: downloading bytes: ██████████████████████████████████████▌                                                                                                                                    |  137MB, 6.81MB/s  [h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████████████████████████████                                                                                                                                    |  138MB, 6.89MB/s  [h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] Missing reference picture, default is 0
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+model.safetensors: downloading bytes: ███████████████████████████████████████▌                                                                                                                                   |  140MB, 6.96MB/s  [h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719bfcc0] co located POCs unavailable
+[h264 @ 00000170719c07c0] Missing reference picture, default is 0
+[h264 @ 00000170719c07c0] decode_slice_header error
+[h264 @ 00000170719c0f40] Missing reference picture, default is 0
+[h264 @ 00000170719c0f40] decode_slice_header error
+[h264 @ 00000170719bf580] Missing reference picture, default is 0
+[h264 @ 00000170719bf580] decode_slice_header error
+[h264 @ 0000017032fe2300] Missing reference picture, default is 65552
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719bfcc0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719bfcc0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+model.safetensors: downloading bytes: ████████████████████████████████████████▏                                                                                                                                  |  142MB, 7.01MB/s  [h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+model.safetensors: downloading bytes: ████████████████████████████████████████▋                                                                                                                                  |  144MB, 7.03MB/s  [h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719bfcc0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719c07c0] Missing reference picture, default is 0
+[h264 @ 00000170719c07c0] decode_slice_header error
+[h264 @ 00000170719c0f40] Missing reference picture, default is 0
+[h264 @ 00000170719c0f40] decode_slice_header error
+[h264 @ 00000170719bf580] Missing reference picture, default is 0
+[h264 @ 00000170719bf580] decode_slice_header error
+[h264 @ 00000170719bfcc0] Missing reference picture, default is 0
+[h264 @ 00000170719bfcc0] decode_slice_header error
+[h264 @ 00000170719bf900] Missing reference picture, default is 0
+[h264 @ 00000170719bf900] decode_slice_header error
+[h264 @ 0000017032fe26c0] Missing reference picture, default is 65552
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719bf580] co located POCs unavailable
+[h264 @ 00000170719bfcc0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c0f40] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+[h264 @ 00000170719c07c0] co located POCs unavailable
+model.safetensors: downloading bytes: █████████████████████████████████████████▌                                                                                                                                 |  147MB, 6.99MB/s
+Результат анализа видео 'videos_for_classify\video_7.mp4':
+Определен класс: classical (уверенность: 58%)
+model.safetensors: downloading bytes: ███████████████████████████████████████████▉                                                                                                                               |  156MB, 7.03MB/s
+Результат анализа видео 'videos_for_classify\video_8.mp4':
+Определен класс: electric (уверенность: 47%)
+model.safetensors: downloading bytes: █████████████████████████████████████████████▌                                                                                                                             |  161MB, 7.31MB/s
+Результат анализа видео 'videos_for_classify\video_9.mp4':
+Определен класс: bass (уверенность: 44%)
+
+Файл с эталонами 'guitar_type.txt' не найден.
+model.safetensors: downloading bytes: ███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████|  432MB, 5.56MB/s
+model.safetensors: reconstructing file: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████|  605MB /  605MB, 26.7MB/s
+
+(.venv) D:\python_programming\for_git_repositories\guitar-fingering-ai\classify_instrument>
