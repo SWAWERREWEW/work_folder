@@ -1,4 +1,0 @@
-segmentation-models-pytorch
-albumentations
-pandas
-opencv-python

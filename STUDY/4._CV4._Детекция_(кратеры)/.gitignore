@@ -1,7 +1,0 @@
-.venv/
-valid/
-train/
-test/
-.ipynb_checkpoints/
-__pycache__/
-.idea/

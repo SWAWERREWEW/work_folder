@@ -1,6 +1,0 @@
-.venv/
-train/
-test_score/
-dataset/
-runs/
-train.json

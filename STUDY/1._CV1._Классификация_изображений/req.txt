@@ -1,7 +1,0 @@
-pillow
-torch
-pandas
-torch
-torchvision
-matplotlib
-jupyter

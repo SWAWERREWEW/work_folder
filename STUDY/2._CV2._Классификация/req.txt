@@ -1,7 +1,0 @@
-jupyter
-pandas
-numpy
-torch
-pillow
-torchvision
-matplotlib
