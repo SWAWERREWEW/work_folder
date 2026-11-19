@@ -1,0 +1,21 @@
+import time
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, StratifiedKFold, cross_validate, cross_val_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import (
+    VarianceThreshold, SelectKBest, f_classif, mutual_info_classif,
+    RFE, SelectFromModel
+)
+from sklearn.metrics import roc_auc_score, classification_report
+
+
+-=-==-=-=-=-=-=-=-=-=-=-=-=-=-==-=-= Примеры моделей -=-=--=-=-=-=-=--=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=
+
+
+LogisticRegression(max_iter=3000, random_state=42)
