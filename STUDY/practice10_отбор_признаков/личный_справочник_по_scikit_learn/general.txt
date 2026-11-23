@@ -1,0 +1,43 @@
+Разделение на выборки
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, stratify=y, random_state=RANDOM_STATE
+)
+
+Pipeline или грубо говоря список действий
+task_list = Pipeline([
+# Стандартный параметр для масштабирования
+(  "scale", StandardScaler()  ),
+# Выбор самого метода
+(  "select", method_подбора_признаков_filter  ),
+# Выбор модели для финального обучения
+(  "model", LogisticRegression(max_iter=3000, random_state=RANDOM_STATE)  )
+])
+
+Перед обучением делается кросс-валидация
+# Кросс-валидация
+scores = cross_val_score(
+# Pipeline
+task_list,
+# Тренировочные данные
+X_train, y_train,
+# Стратификации как инструмент чтобы сделать кросс-валидации
+cv=StratifiedKFold(
+# Количество фолдов
+n_splits=5,
+# Перемешивание
+shuffle=True,
+# Параметр случайности для перемешивания
+random_state=RANDOM_STATE),
+# Исследуемая характеристика для оценки качества модели
+scoring='roc_auc')
+
+
+# Обучение pipeline или всех его шагов на тренировочных данных
+pipe.fit(X_train, y_train)
+# Сохранение названия колонок
+names = X_train.columns[
+# Получение шагов из pipeline
+pipe.named_steps[
+# колонка выбранных и их получение
+'select'].get_support()]
+количество_полезных_признаков.append(len(names))

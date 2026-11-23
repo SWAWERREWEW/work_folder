@@ -1,0 +1,2 @@
+Модель логистисеской регрессии
+LogisticRegression(max_iter=3000, random_state=42)

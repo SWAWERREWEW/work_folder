@@ -13,9 +13,3 @@ from sklearn.feature_selection import (
     RFE, SelectFromModel
 )
 from sklearn.metrics import roc_auc_score, classification_report
-
-
--=-==-=-=-=-=-=-=-=-=-=-=-=-=-==-=-= Примеры моделей -=-=--=-=-=-=-=--=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=
-
-
-LogisticRegression(max_iter=3000, random_state=42)
